@@ -22,6 +22,9 @@ WHEN replacement_cost between 25.00 and 29.99  THEN 1 ELSE 0 END
 )  AS 'no_of_high'
 FROM film
 ```
+##### Approach : 
++ Here in this particular question we have been asked to give the overview of the films where the replacement_cost is in the given range categorizing it into low,medium and high
++ Logic in the case statement is if the particular replacement_cost is within the specified range for the particular category then returning 1 else 0 which we are summing up using SUM() function which results in total number of films in that particular range
 
 
 ##### OUTPUT :
@@ -44,6 +47,11 @@ ON fc.category_id = c.category_id
 WHERE c.name = 'Drama' or c.name='Sports' 
 ORDER BY f.length_ DESC ;
 ```
+##### Approach :  
+ + Here we have to create a list of the film titles including their film title, film length and film category name ordered descendingly by the film length for the category “sports” and “drama”.
++ So for that I have joined three tables i.e., film, film_category, category and extracted the film_title, film_length and film_category by applying the filter for category name to be only “Sports” and “Drama” ordering by the length of the film in descending order.
+
+
 ##### OUTPUT : 
 <img width="585" alt="Screenshot 2023-03-08 at 2 16 07 PM" src="https://user-images.githubusercontent.com/122472996/223665771-b6aac043-abe7-47ff-b497-e923908993e9.png">
 
@@ -59,8 +67,15 @@ RIGHT JOIN address a
 ON c.address_id = a.address_id
 WHERE c.customer_id IS NULL
 ```
+##### Approach :
++ We have been asked to create a list of the addresses that are not associated to any customer
++ So For that I have used two tables i.e., `address` and `customer`.
++ I have used right join above to retrieve all the data from the address table irrespective of whether it is present in the customer table. So whichever customer_id is not associated with any address will result in null values which i am using in the where clause to filter out the data where customer_id is null which will give me all the address which are not related to any customer.
+
+
 ##### OUTPUT : 
 <img width="585" alt="Screenshot 2023-03-08 at 2 19 26 PM" src="https://user-images.githubusercontent.com/122472996/223666541-33b758d1-0e0a-4340-bcb3-2994a7e688e8.png">
+
 
 ### QUESTION 4:
 Write a query to create a list of the revenue (sum of amount) grouped by a column in the format "country, city" ordered in decreasing amount of revenue.
@@ -83,6 +98,10 @@ JOIN payment py
 ON r.rental_id = py.rental_id
 GROUP BY cty.country, ct.city 
 ```
+##### Approach: 
++ Here we need to create a list of the revenue based on country, city according to decreasing amount of revenue
++ So for getting the desired result I have joined 4 tables i.e., country, city, address and payment to fetch country name, city name which I am concatenating using CONCAT() function
++ Also calculated the revenue by using window function which is calculating the sum of amount partitioning by Country,City and then ordering revenue by descending order
 ##### OUTPUT :
 <img width="599" alt="Screenshot 2023-03-08 at 2 24 02 PM" src="https://user-images.githubusercontent.com/122472996/223667564-13bd53f8-cb88-4ee6-8c42-b0ae74aee6bc.png">
 
@@ -102,6 +121,9 @@ FROM payment
 )a
 GROUP BY staff_id
 ```
+##### Approach :
++ Here we are asked to create a list with the average of sales per customer with each staff id.
++ In this I have used the window function to calculate the sum_amount 
 ##### OUTPUT :
 <img width="599" alt="Screenshot 2023-03-08 at 2 26 51 PM" src="https://user-images.githubusercontent.com/122472996/223668179-13554356-959b-4726-bcce-986f70cbb1e0.png">
 
@@ -119,6 +141,10 @@ GROUP BY DATE(payment_date)
 ) a
 
 ```
+##### Approach : 
++ Here we have to calculate average daily revenue of all Sundays.
++ In the where condition `WEEKDAY()` function gives a numeric value which mapped to days and for Sunday it is 6.
++ And Rounding the Avg to 2 decimal places.
 
 ##### OUTPUT :
 <img width="599" alt="Screenshot 2023-03-08 at 2 33 41 PM" src="https://user-images.githubusercontent.com/122472996/223669795-39c4a2b0-ec47-4be7-905c-023cfbfc0ee8.png">
@@ -151,6 +177,11 @@ FROM t1,t2
 WHERE t1.district = t2.district
 
 ```
+##### Approach: 
++ In this I have to CTEs as t1 and t2 .
++ t1 calculates the sum of amount per district
++ t2 calcultes the distinct district.
+
 
 ##### OUTPUT :
 <img width="599" alt="Screenshot 2023-03-08 at 2 37 45 PM" src="https://user-images.githubusercontent.com/122472996/223670601-00c0a68a-74eb-464c-b5a0-777880711312.png">
@@ -187,6 +218,10 @@ GROUP BY  f.title , ct.name
 ) a
 WHERE a.rn<=1
 ```
+##### Approach :
++ Used the Window Function which partition by category name and order by the sum of the payment and giving them a dense rank.
++ And Putting condition where rank is less than equal to 1.
+
 ##### OUTPUT :
 <img width="599" alt="Screenshot 2023-03-08 at 2 42 22 PM" src="https://user-images.githubusercontent.com/122472996/223671575-1962222d-58e7-4bc9-b87d-c006e10bee95.png">
 
